@@ -1,14 +1,9 @@
-import fs from "node:fs";
+import User from "../models/users.model";
 
 export const getUsers = async (req, res, next) => {
   try {
-    fs.readFile("./data/users.json", { encoding: "utf-8" }, (err, data) => {
-      if (err) {
-        res.status(500).send({ message: "Internal Server Error" });
-      } else {
-        res.send(JSON.parse(data));
-      }
-    });
+    const users = await User.find();
+    res.status(200).send(users);
   } catch (error) {
     next(error);
   }
@@ -16,19 +11,12 @@ export const getUsers = async (req, res, next) => {
 
 export const getUserById = async (req, res, next) => {
   try {
-    fs.readFile("./data/users.json", { encoding: "utf-8" }, (err, data) => {
-      if (err) {
-        res.status(500).send({ message: "Internal Server Error" });
-      } else {
-        const users = JSON.parse(data);
-        const user = users.find((user) => user.id === req.params.id);
-        if (!user) {
-          res.status(404).send({ message: "User not found" });
-        } else {
-          res.send(user);
-        }
-      }
-    });
+    const user = await User.findById(req.params._id);
+    if (!user) {
+      const error = new Error("User not found");
+      error.statusCode = 404;
+      throw error;
+    }
   } catch (error) {
     next(error);
   }

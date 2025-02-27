@@ -1,4 +1,8 @@
 import express from "express";
+
+import { PORT } from "./config/env.js";
+
+import connectToMongoDB from "./database/mongodb.js";
 import errorMiddleware from "./middleware/error.middleware.js";
 import usersRouter from "./routes/users.routes.js";
 import cardsRouter from "./routes/cards.routes.js";
@@ -9,10 +13,11 @@ app.use(errorMiddleware);
 
 app.get("/users", usersRouter);
 app.get("/cards", cardsRouter);
-app.get("/users/8340d0ec33270a25f2413b69", usersRouter);
+app.get("/users/:_id", usersRouter);
 
-app.listen(3000, () => {
-  console.log("Server is running on port http://localhost:3000");
+app.listen(PORT, async () => {
+  console.log(`Server is running on port http://localhost:${PORT}`);
+  await connectToMongoDB();
 });
 
 export default app;

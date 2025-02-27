@@ -1,14 +1,9 @@
-import fs from "node:fs";
+import Card from "../models/cards.model.js";
 
 export const getCards = async (req, res, next) => {
   try {
-    fs.readFile("./data/cards.json", { encoding: "utf-8" }, (err, data) => {
-      if (err) {
-        res.status(500).send({ message: "Internal Server Error" });
-      } else {
-        res.send(JSON.parse(data));
-      }
-    });
+    const cards = await Card.find();
+    res.status(200).send(cards);
   } catch (error) {
     next(error);
   }
