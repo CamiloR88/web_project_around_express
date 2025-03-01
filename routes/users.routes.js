@@ -7,10 +7,10 @@ import {
 
 const usersRouter = Router();
 
-usersRouter.get("/", getUsers);
+usersRouter.get("/users", getUsers);
 
-usersRouter.get("/:id", getUserById);
+usersRouter.get("/users/:id", getUserById);
 
-usersRouter.post("/", createUser);
+usersRouter.post("/users", createUser);
 
 export default usersRouter;
