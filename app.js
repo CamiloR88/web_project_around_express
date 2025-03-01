@@ -13,7 +13,6 @@ app.use(errorMiddleware);
 
 app.get("/users", usersRouter);
 app.get("/cards", cardsRouter);
-app.get("/users/:_id", usersRouter);
 
 app.listen(PORT, async () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
