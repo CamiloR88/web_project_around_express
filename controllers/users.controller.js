@@ -4,7 +4,7 @@ export const createUser = async (req, res, next) => {
   try {
     const { name, about, avatar } = req.body;
     const user = await User.create({ name, about, avatar });
-    res.status(201).send(user);
+    res.status(201).json({ data: user });
   } catch (error) {
     next(error);
   }

@@ -17,6 +17,15 @@ const usersSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
+    validate: {
+      validator: (v) => {
+        const urlRegex =
+          /^http:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})(\/[a-zA-Z0-9-]*)*\/?$/;
+
+        return urlRegex.test(v);
+      },
+      message: (props) => `${props.value} no es una URL válida`,
+    },
   },
 });
 
