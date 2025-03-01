@@ -5,7 +5,7 @@ const errorMiddleware = (err, req, res, next) => {
     console.log(err);
 
     if (err.name === "CastError") {
-      const message = "Resource not found";
+      const message = "Recurso no encontrado";
       error = new Error(message);
       error.status = 400;
     }

@@ -1,4 +1,14 @@
-import User from "../models/users.model";
+import User from "../models/users.model.js";
+
+export const createUser = async (req, res, next) => {
+  try {
+    const { name, about, avatar } = req.body;
+    const user = await User.create({ name, about, avatar });
+    res.status(201).send(user);
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const getUsers = async (req, res, next) => {
   try {
@@ -13,7 +23,7 @@ export const getUserById = async (req, res, next) => {
   try {
     const user = await User.findById(req.params._id);
     if (!user) {
-      const error = new Error("User not found");
+      const error = new Error("No se encontró el usuario");
       error.statusCode = 404;
       throw error;
     }
