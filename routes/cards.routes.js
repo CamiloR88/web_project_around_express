@@ -7,8 +7,8 @@ import {
 
 const cardsRouter = Router();
 
-cardsRouter.get("/cards", getCards);
-cardsRouter.post("/cards", createCard);
-cardsRouter.delete("/cards/:cardId", deleteCard);
+cardsRouter.get("/", getCards);
+cardsRouter.post("/", createCard);
+cardsRouter.delete("/:cardId", deleteCard);
 
 export default cardsRouter;

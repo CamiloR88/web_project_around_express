@@ -9,10 +9,12 @@ import cardsRouter from "./routes/cards.routes.js";
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(errorMiddleware);
 
-app.get("/users", usersRouter);
-app.get("/cards", cardsRouter);
+app.use("/users", usersRouter);
+app.use("/cards", cardsRouter);
 
 app.listen(PORT, async () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
