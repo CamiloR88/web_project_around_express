@@ -17,10 +17,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    // match: [
-    //   /^http:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})(\/[a-zA-Z0-9-]*)*\/?$/,
-    //   "URL inválida",
-    // ],
     // validate: {
     //   validator: (v) => {
     //     const avatarRegex =

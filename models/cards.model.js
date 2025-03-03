@@ -12,7 +12,8 @@ const cardsSchema = new mongoose.Schema({
     required: true,
     // validate: {
     //   validator: (v) => {
-    //     const linkRegex = /^http:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})(\/[a-zA-Z0-9-]*)*\/?$/;
+    //     const linkRegex =
+    //       /^http:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})(\/[a-zA-Z0-9-]*)*\/?$/;
 
     //     return linkRegex.test(v);
     //   },
