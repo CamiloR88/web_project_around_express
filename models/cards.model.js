@@ -31,10 +31,6 @@ const cardsSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
 });
 
 const Card = mongoose.model("Card", cardsSchema);

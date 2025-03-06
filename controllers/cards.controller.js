@@ -1,10 +1,13 @@
-import e from "express";
 import Card from "../models/cards.model.js";
 
 export const getCards = async (req, res, next) => {
   try {
-    const cards = await Card.find();
-    res.status(200).send(cards);
+    const cards = await Card.find().orFail(() => {
+      const error = new Error("No se encontraron tarjetas");
+      error.statusCode = 404;
+      throw error;
+    });
+    res.status(200).json(cards);
   } catch (error) {
     next(error);
   }
@@ -14,27 +17,31 @@ export const createCard = async (req, res, next) => {
   try {
     const { name, link } = req.body;
     const owner = req.user._id;
-    const card = await Card.create({ name, link, owner });
-    res.status(201).send(card);
+    const card = await Card.create([{ name, link, owner }]);
+    res.status(201).json(card);
   } catch (error) {
     next(error);
   }
 };
 export const deleteCard = async (req, res, next) => {
   try {
-    const card = await Card.findById(req.params._id);
-    if (!card) {
+    const card = await Card.findById(req.params._id).orFail(() => {
       const error = new Error("No se encontró la tarjeta");
       error.statusCode = 404;
       throw error;
-    }
+    });
+
     if (card.owner.toString() !== req.user._id) {
       const error = new Error("No tienes permiso para eliminar esta tarjeta");
       error.statusCode = 403;
       throw error;
     }
-    await Card.findByIdAndDelete(req.params._id);
-    res.status(200).send({ message: "Tarjeta se borro con exito" });
+    await Card.findByIdAndDelete(req.params._id).orFail(() => {
+      const error = new Error("No se encontró la tarjeta");
+      error.statusCode = 404;
+      throw error;
+    });
+    res.status(200).json({ message: "Tarjeta se borro con exito" });
   } catch (error) {
     next(error);
   }
